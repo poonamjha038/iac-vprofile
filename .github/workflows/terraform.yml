@@ -1,16 +1,16 @@
 name: "vrofile IAC"
 on:
   push:
-    brannches:
+    branches:
      - main
      - stage
     paths:
      - terraform/**
   pull_request:
     branches:
-     - main
+      - main
     paths:
-     - terraform/**
+      - terraform/**
 
 env:
  # Credentials for deployment for aws
@@ -42,7 +42,7 @@ jobs:
 
       - name: Teraform init
         id: init
-        run: teraform init -backend-config="bucket=$RABACKE32STATE53"
+        run: terraform init -backend-config="bucket=$RABACKE32STATE53"
 
       - name: Terraform format
         id: fmt
@@ -57,6 +57,6 @@ jobs:
         run: terraform plan -no-color -input=false -out planfile
         continue-on-error: true
 
-      - name: Terroform plan status
+      - name: Terraform plan status
         if: steps.plan.outcome == 'failure'
         run: exit 1
